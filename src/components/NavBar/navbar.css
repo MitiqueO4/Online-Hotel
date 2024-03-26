@@ -17,6 +17,10 @@
     height: 3.5rem;
 }
 
+a{
+    text-decoration: none;
+}
+
 .desktopMenuListItem {
     font-family: 'Lato', sans-serif;
     margin: 2rem;
@@ -24,6 +28,7 @@
     font-size: 18px;
     position: relative; /* This is necessary for absolute positioning of the pseudo-element */
     display: inline-block; /* Ensure the element has a defined width */
+    color: #4c00b4;
 }
 
 .desktopMenuListItem::before {
@@ -33,7 +38,7 @@
     left: 50%;
     width: 0;
     height: 2px; /* Height of the underline */
-    background-color: black;
+    background-color: #3c009d;
     transition: width 0.3s ease, left 0.3s ease; /* Smooth transition for the width and horizontal position */
     transform: translateX(-50%);
 }
@@ -48,10 +53,10 @@
     font-family: Roboto, sans-serif;
     font-weight: 0;
     font-size: 18px;
-    color: #000000;
-    background-color: #ffffff00;
+    color: #4c00b4;
+    background-color: #ffffff;
     padding: 10px 30px;
-    border: 2px solid #000000;
+    border: 2px solid #3c009d;
     box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
     border-radius: 50px;
     transition : 1000ms;
@@ -66,7 +71,7 @@
     transition : 1000ms;
     padding: 10px 50px;
     transform : translateY(-0px);
-    background-color: #000000;
+    background-color: #3c009d;
     color: #ffffff;
-    border: solid 2px #ffffff00;
+    border: solid 2px #3c009d;
 }
