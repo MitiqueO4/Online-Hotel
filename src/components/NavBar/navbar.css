@@ -1,5 +1,5 @@
 .navbar{
-    height: 5rem;
+    height: 4rem;
     width: 100vw;
     max-width: 75rem;
     margin: 0 auto;
@@ -14,35 +14,59 @@
 
 .logo{
     object-fit: cover;
-    height: 3rem;
+    height: 3.5rem;
 }
 
 .desktopMenuListItem {
-    margin: 1rem;
+    font-family: 'Lato', sans-serif;
+    margin: 2rem;
+    cursor: pointer;
+    font-size: 18px;
+    position: relative; /* This is necessary for absolute positioning of the pseudo-element */
+    display: inline-block; /* Ensure the element has a defined width */
+}
+
+.desktopMenuListItem::before {
+    content: '';
+    position: absolute;
+    bottom: 0; /* Adjust this value to position the underline */
+    left: 50%;
+    width: 0;
+    height: 2px; /* Height of the underline */
+    background-color: black;
+    transition: width 0.3s ease, left 0.3s ease; /* Smooth transition for the width and horizontal position */
+    transform: translateX(-50%);
+}
+
+.desktopMenuListItem:hover::before {
+    width: 100%;
+    left: 0; /* Reset left position to cover the full width */
+    transform: translateX(0%); /* Reset transform for full width coverage */
+}
+
+.desktopMenuBtn{
+    font-family: Roboto, sans-serif;
+    font-weight: 0;
+    font-size: 18px;
+    color: #000000;
+    background-color: #ffffff00;
+    padding: 10px 30px;
+    border: 2px solid #000000;
+    box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+    border-radius: 50px;
+    transition : 1000ms;
+    transform: translateY(0);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     cursor: pointer;
 }
 
-.desktopMenuBookBtn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.7rem 2rem;
-    font-family: "Poppins", sans-serif;
-    font-weight: 700;
-    font-size: 18px;
-    text-align: center;
-    text-decoration: none;
-    color: #fff;
-    backface-visibility: hidden;
-    border: 0.3rem solid transparent;
-    border-radius: 3rem;
-  }
-  
-  .bn36 {
-    border-color: #fff;
-    transition: transform 0.2s cubic-bezier(0.235, 0, 0.05, 0.95);
-  }
-  
-  .bn36:hover {
-    transform: perspective(1px) scale3d(1.044, 1.044, 1) translateZ(0) !important;
-  }
+.desktopMenuBtn:hover{
+    transition : 1000ms;
+    padding: 10px 50px;
+    transform : translateY(-0px);
+    background-color: #000000;
+    color: #ffffff;
+    border: solid 2px #ffffff00;
+}
