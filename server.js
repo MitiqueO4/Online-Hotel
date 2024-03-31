@@ -34,5 +34,43 @@ app.get("/Hotel_Chain", async(req, res) => {
     }
 })
 
+// User Login
+app.post("/login", async (req, res) => {
+    /*
+    try {
+        const { email, password } = req.body;
+
+        // Check if the user exists
+        const user = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
+        if (user.rows.length === 0) {
+            return res.status(401).json({ error: "Invalid email or password" });
+        }
+
+        // Compare passwords
+        const hashedPassword = user.rows[0].password;
+        const passwordMatch = await bcrypt.compare(password, hashedPassword);
+        if (!passwordMatch) {
+            return res.status(401).json({ error: "Invalid email or password" });
+        }
+
+        // Check if the user is a manager
+        const isManager = user.rows[0].managers;
+
+        if (isManager) {
+            // Redirect to manager URI if user is a manager
+            return res.json({ message: "Manager login successful", redirectTo: "/manager" });
+        } else {
+            // Redirect to regular user URI if user is not a manager
+            return res.json({ message: "Regular user login successful", redirectTo: "/employee" });
+        }
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ error: "An error occurred while logging in" });
+    }
+    */
+    console.log("Login route accessed");
+
+});
+
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
