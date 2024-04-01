@@ -36,25 +36,31 @@ app.get("/Hotel_Chain", async(req, res) => {
 
 // User Login
 app.post("/login", async (req, res) => {
-    /*
     try {
+        console.log("Login route accessed.");
         const { email, password } = req.body;
+        console.log(`Looking up user: ${email}`);
 
-        // Check if the user exists
         const user = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
+        console.log(`User found: ${user.rows.length > 0}`);
+
         if (user.rows.length === 0) {
             return res.status(401).json({ error: "Invalid email or password" });
         }
 
-        // Compare passwords
-        const hashedPassword = user.rows[0].password;
-        const passwordMatch = await bcrypt.compare(password, hashedPassword);
+        // Compare password
+        const dbPassword = user.rows[0].password;
+        console.log(`Comparing password for: ${email}`);
+
+        const passwordMatch = password == dbPassword;
+
         if (!passwordMatch) {
             return res.status(401).json({ error: "Invalid email or password" });
         }
 
         // Check if the user is a manager
-        const isManager = user.rows[0].managers;
+        const isManager = user.rows[0].is_manager;
+        console.log(`is manager: ${isManager}`);
 
         if (isManager) {
             // Redirect to manager URI if user is a manager
@@ -67,9 +73,6 @@ app.post("/login", async (req, res) => {
         console.error(error.message);
         res.status(500).json({ error: "An error occurred while logging in" });
     }
-    */
-    console.log("Login route accessed");
-
 });
 
 

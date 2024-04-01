@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from "./components/NavBar/navbar";
 import LoginSignup from "./components/LoginSignup/loginsignup";
+import Manager from "./components/Manager/manager";
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
 function App() {
@@ -11,7 +12,7 @@ function App() {
         <Routes> 
           <Route path="/" element={<Navigate replace to="/home" />} />
           <Route path="/login" element={<LoginSignup />} />
-          {/* Define other routes and their elements here */}
+          <Route path="/manager" element={<Manager />} />
         </Routes>
       </div>
     </Router>

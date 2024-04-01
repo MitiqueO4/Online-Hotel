@@ -10,7 +10,7 @@ const LoginSignup = () => {
     const [error, setError] = useState("");
 
     // Function to handle login action
-    const handleLogin = async() => {
+    const handleLogin = async () => {
         try {
             const response = await fetch("/login", {
                 method: 'POST',
@@ -19,15 +19,17 @@ const LoginSignup = () => {
                 },
                 body: JSON.stringify({ email, password }),
             });
-            
+
             if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || 'Login failed');
+                console.error(`HTTP Error: ${response.status}`);
+                const text = await response.text();
+                console.error(`Response Text: ${text}`);
+                throw new Error('Failed to fetch');
             }
 
             const responseData = await response.json();
             const { message, redirectTo } = responseData;
-            
+
             console.log(message); // Log the login message
 
             // Redirect based on the response
