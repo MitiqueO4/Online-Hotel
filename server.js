@@ -26,6 +26,21 @@ app.post("/Hotel_Chain", async(req, res) => {
     }
 });
 
+// Create Hotel
+app.post("/Hotel", async(req, res) => {
+    try {
+        const { chainID, hotelID, address, contactEmail, contactPhone, numberOfRooms } = req.body;
+        const newHotel = await pool.query(
+            "INSERT INTO Hotel (Chain_ID, hotel_id, Address, Emails, Phone_Numbers, Number_of_Rooms) VALUES($1, $2, $3, ARRAY[$4], ARRAY[$5], $6) RETURNING *",
+            [chainID, hotelID, address, contactEmail, contactPhone, numberOfRooms]
+        );
+        res.json(newHotel.rows[0]);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ message: "Failed to create hotel chain" });
+    }
+});
+
 // Get all Hotel Chains
 app.get("/Hotel_Chain", async(req, res) => {
     try {
