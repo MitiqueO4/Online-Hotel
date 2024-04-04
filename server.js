@@ -14,15 +14,17 @@ app.use(express.json()); //req.body
 // Create Hotel_Chain
 app.post("/Hotel_Chain", async(req, res) => {
     try {
-        const { chainid } = req.body;
-        const newHC = await pool.query("INSERT INTO Hotel_Chain (ChainID) VALUES($1)",
-        [chainid]
+        const { chainID, address, phoneNumbers, emails } = req.body;
+        const newHC = await pool.query(
+            "INSERT INTO Hotel_Chain (ChainID, Address, Phone_Numbers, Emails) VALUES($1, $2, ARRAY[$3::integer], ARRAY[$4]) RETURNING *",
+            [chainID, address, phoneNumbers, emails]
         );
-        res.json(newHC.rows[0])
+        res.json(newHC.rows[0]);
     } catch (error) {
         console.error(error.message);
+        res.status(500).json({ message: "Failed to create hotel chain" });
     }
-})
+});
 
 // Get all Hotel Chains
 app.get("/Hotel_Chain", async(req, res) => {

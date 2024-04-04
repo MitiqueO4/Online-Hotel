@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const HotelChainRatingForm = () => {
+const HotelRatingForm = () => {
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState('');
   const chainId = 'YOUR_CHAIN_ID'; // This should be dynamically selected
@@ -35,4 +35,4 @@ const HotelChainRatingForm = () => {
   );
 };
 
-export default HotelChainRatingForm;
+export default HotelRatingForm;

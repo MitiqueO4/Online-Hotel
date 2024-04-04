@@ -2,19 +2,32 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const HotelChainCreationForm = () => {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const [chainID, setChainID] = useState(0);
+  const [address, setAddress] = useState('');
+  const [phoneNumbers, setPhoneNumbers] = useState(0);
+  const [emails, setEmails] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/hotel-chains', { name, description });
+      const response = await axios.post("/Hotel_Chain", {
+        chainID,
+        address,
+        phoneNumbers,
+        emails
+      });
+
+      console.log(response.data); // Log the response data
+
       alert('Hotel chain created successfully!');
-      setName('');
-      setDescription('');
+      setChainID(0);
+      setAddress('');
+      setPhoneNumbers(0);
+      setEmails('');
     } catch (error) {
-      alert('Failed to create hotel chain');
-      console.error(error);
+      console.error('Hotel chain creation error:', error.message);
+      setError(error.message);
     }
   };
 
@@ -22,16 +35,24 @@ const HotelChainCreationForm = () => {
     <form onSubmit={handleSubmit}>
       <h2>Create Hotel Chain</h2>
       <label>
-        Name:
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+        ChainID:
+        <input type="number" value={chainID} onChange={(e) => setChainID(parseInt(e.target.value))} />
       </label>
       <label>
-        Description:
-        <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
+        Address:
+        <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
+      </label>
+      <label>
+        Phone Numbers:
+        <input type="number" value={phoneNumbers} onChange={(e) => setPhoneNumbers(parseInt(e.target.value))} />
+      </label>
+      <label>
+        Emails:
+        <input type="text" value={emails} onChange={(e) => setEmails(e.target.value)} />
       </label>
       <button type="submit">Submit</button>
     </form>
   );
 };
 
-export default HotelChainCreationForm;
+export default HotelChainCreationForm

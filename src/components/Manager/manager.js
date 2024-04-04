@@ -14,10 +14,10 @@ const Manager = () => {
                 <Link to="/hotelchaincreationform">Add Hotel Chain</Link>
               </li>
               <li>
-                <Link to="/hotelchainratingform">Rate Hotel Chain</Link>
+                <Link to="/hotelcreationform">Add Hotel</Link>
               </li>
               <li>
-                <Link to="/hotelcreationform">Add Hotel</Link>
+                <Link to="/hotelratingform">Rate Hotel</Link>
               </li>
             </ul>
           </nav>        
