@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const HotelCreationForm = ({ chainId }) => {
-  const [name, setName] = useState('');
+const HotelCreationForm = () => {
+  const [chainID, setChainID] = useState();
+  const [hotelID, setHotelID] = useState('');
   const [address, setAddress] = useState('');
   const [contactEmail, setContactEmail] = useState('');
   const [contactPhone, setContactPhone] = useState('');
@@ -11,16 +12,21 @@ const HotelCreationForm = ({ chainId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`/hotel-chains/${chainId}/hotels`, {
-        name,
+      const response = await axios.post("/Hotel", {
+        chainID,
+        hotelID,
         address,
         contactEmail,
         contactPhone,
         numberOfRooms: parseInt(numberOfRooms, 10)
       });
+
+      console.log(response.data); // Log the response data
+
       alert('Hotel added successfully!');
       // Reset form
-      setName('');
+      setChainID('');
+      setHotelID('');
       setAddress('');
       setContactEmail('');
       setContactPhone('');
@@ -35,10 +41,17 @@ const HotelCreationForm = ({ chainId }) => {
     <form onSubmit={handleSubmit}>
       <h2>Add Hotel</h2>
       <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Hotel Name"
+        type="number"
+        value={chainID}
+        onChange={(e) => setChainID(e.target.value)}
+        placeholder="Hotel Chain ID"
+        required
+      />
+      <input
+        type="number"
+        value={hotelID}
+        onChange={(e) => setHotelID(e.target.value)}
+        placeholder="Hotel ID"
         required
       />
       <input
@@ -56,7 +69,7 @@ const HotelCreationForm = ({ chainId }) => {
         required
       />
       <input
-        type="tel"
+        type="text"
         value={contactPhone}
         onChange={(e) => setContactPhone(e.target.value)}
         placeholder="Contact Phone"
