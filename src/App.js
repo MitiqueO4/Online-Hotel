@@ -13,6 +13,9 @@ function App() {
           <Route path="/" element={<Navigate replace to="/home" />} />
           <Route path="/login" element={<LoginSignup />} />
           <Route path="/manager" element={<Manager />} />
+          <Route path="/hotelchaincreationform" element={<HotelChainCreationForm />} />
+          <Route path="/hotelcreationform" element={<HotelChainCreationForm />} />
+          <Route path="/hotelchainratingform" element={<HotelChainRatingForm />} />
         </Routes>
       </div>
     </Router>
