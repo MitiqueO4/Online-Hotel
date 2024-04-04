@@ -33,3 +33,5 @@ const HotelChainCreationForm = () => {
     </form>
   );
 };
+
+export default HotelChainCreationForm;

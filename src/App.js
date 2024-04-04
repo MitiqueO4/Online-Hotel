@@ -17,8 +17,8 @@ function App() {
           <Route path="/login" element={<LoginSignup />} />
           <Route path="/manager" element={<Manager />} />
           <Route path="/hotelchaincreationform" element={<HotelChainCreationForm />} />
-          <Route path="/hotelcreationform" element={<HotelChainRatingForm />} />
-          <Route path="/hotelchainratingform" element={<HotelCreationForm />} />
+          <Route path="/hotelchainratingform" element={<HotelChainRatingForm />} />
+          <Route path="/hotelcreationform" element={<HotelCreationForm />} />
         </Routes>
       </div>
     </Router>

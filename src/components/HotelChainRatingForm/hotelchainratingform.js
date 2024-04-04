@@ -34,3 +34,5 @@ const HotelChainRatingForm = () => {
     </form>
   );
 };
+
+export default HotelChainRatingForm;

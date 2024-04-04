@@ -73,3 +73,5 @@ const HotelCreationForm = ({ chainId }) => {
     </form>
   );
 };
+
+export default HotelCreationForm;
