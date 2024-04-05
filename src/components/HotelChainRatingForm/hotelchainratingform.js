@@ -10,23 +10,24 @@ const HotelRatingForm = () => {
   useEffect(() => {
     const fetchChains = async () => {
       try {
-        const response = await axios.get('/hotel-chains');
-        setChains(response.data); // Assume the API returns an array of chain objects
+        const response = await axios.get('/Hotel_Chain');
+        console.log(response.data); // Check if the correct data is fetched
+        setChains(response.data);
         if (response.data.length > 0) {
-          setChainId(response.data[0].id); // Automatically select the first chain
+          setChainId(response.data[0].chain_id);
         }
       } catch (error) {
         console.error('Failed to fetch hotel chains:', error);
       }
     };
-
+  
     fetchChains();
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`/hotel-chains/${chainId}/ratings`, { rating, comment });
+      await axios.post('/Hotel_Rate', { chainId, rating, comment });
       alert('Rating submitted successfully!');
       setRating(5);
       setComment('');
@@ -42,16 +43,25 @@ const HotelRatingForm = () => {
       <label>
         Select Chain:
         <select value={chainId} onChange={(e) => setChainId(e.target.value)}>
-          {chains.map((chain) => (
-            <option key={chain.id} value={chain.id}>
-              {chain.name}
-            </option>
-          ))}
+          {chains.map((chain) => {
+            console.log("Chain:", chain.chain_id); // Add this line to debug
+            return (
+              <option key={chain.chain_id} value={chain.chain_id}> 
+                {chain.chain_id}
+              </option>
+            );
+          })}
         </select>
       </label>
       <label>
         Rating:
-        <input type="number" value={rating} onChange={(e) => setRating(e.target.value)} />
+        <select value={rating} onChange={(e) => setRating(e.target.value)}>
+          <option value={1}>1</option>
+          <option value={2}>2</option>
+          <option value={3}>3</option>
+          <option value={4}>4</option>
+          <option value={5}>5</option>
+        </select>
       </label>
       <label>
         Comment:

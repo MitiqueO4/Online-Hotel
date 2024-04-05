@@ -12,7 +12,7 @@ const RoomCreationForm = ({ hotelId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`/hotels/${hotelId}/rooms`, {
+      const response = await axios.post('', {
         price: parseFloat(price),
         amenities,
         capacity,

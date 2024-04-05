@@ -16,7 +16,7 @@ app.post("/Hotel_Chain", async(req, res) => {
     try {
         const { chainID, address, phoneNumbers, emails } = req.body;
         const newHC = await pool.query(
-            "INSERT INTO Hotel_Chain (ChainID, Address, Phone_Numbers, Emails) VALUES($1, $2, ARRAY[$3::integer], ARRAY[$4]) RETURNING *",
+            "INSERT INTO Hotel_Chain (Chain_ID, Address, Phone_Numbers, Emails) VALUES($1, $2, ARRAY[$3::integer], ARRAY[$4]) RETURNING *",
             [chainID, address, phoneNumbers, emails]
         );
         res.json(newHC.rows[0]);
@@ -41,10 +41,26 @@ app.post("/Hotel", async(req, res) => {
     }
 });
 
+// Rate Hotel
+app.post("/Hotel_Rate", async(req, res) => {
+    try {
+        const { chainId, rating } = req.body;
+        const updateChain = await pool.query(
+            "UPDATE hotel_chain SET rating = $1 WHERE chain_id = $2 RETURNING *",
+            [rating, chainId]
+        );
+        console.log("Database response:", updateChain.rows[0]); // Log database response
+        res.json(updateChain.rows[0]);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ message: "Failed to create hotel chain" });
+    }
+});
+
 // Get all Hotel Chains
 app.get("/Hotel_Chain", async(req, res) => {
     try {
-        const allHC = await pool.query("SELECT * FROM Hotel_Chain");
+        const allHC = await pool.query("SELECT chain_id FROM Hotel_Chain");
         res.json(allHC.rows);
     } catch (error) {
         console.error(error.message);
