@@ -3,15 +3,15 @@ import axios from 'axios';
 
 const HotelList = () => {
   const [hotels, setHotels] = useState([]);
-  const [selectedHotelId, setSelectedHotelId] = useState(null);
+  const [selectedHotelId, setSelectedHotelId] = useState();
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
     // Fetch the list of hotels
     const fetchHotels = async () => {
       try {
-        const response = await axios.get('/hotels');
-        setHotels(response.data);
+        const hotelResponse = await axios.get('/hotels');
+        setHotels(hotelResponse.data);
       } catch (error) {
         console.error('Error fetching hotels:', error);
       }
@@ -20,35 +20,53 @@ const HotelList = () => {
     fetchHotels();
   }, []);
 
-  const handleHotelClick = async (hotelId) => {
+  const handleHotelChange = async (event) => {
+    const hotelId = event.target.value;
     setSelectedHotelId(hotelId);
     try {
-      const response = await axios.get(`/hotels/${hotelId}/rooms`);
-      setRooms(response.data); // Assuming the API returns an array of rooms
+      const response = await axios.post('/rooms', { hotelId });
+      setRooms(response.data);
+      console.log(response.data);
     } catch (error) {
       console.error('Error fetching rooms:', error);
     }
   };
 
+  const handleRoomBooking = async(e) => {
+    try {
+      return
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div>
       <h2>Hotels</h2>
-      <ul>
+      <select onChange={handleHotelChange}>
+        <option value="">Select a hotel</option>
         {hotels.map((hotel) => (
-          <li key={hotel.id} onClick={() => handleHotelClick(hotel.id)}>
-            <h3>{hotel.name}</h3>
-            {/* More hotel details */}
-          </li>
+          <option key={hotel.hotel_id} value={hotel.hotel_id}>
+            {hotel.hotel_id}
+          </option>
         ))}
-      </ul>
+      </select>
       {selectedHotelId && (
         <div>
-          <h3>Rooms in {hotels.find(hotel => hotel.id === selectedHotelId)?.name}</h3>
+          <h3>Rooms in Hotel</h3>
           <ul>
             {rooms.map((room) => (
-              <li key={room.id}>
+              <li key={room.room_id}>
                 {/* Display room details */}
-                <span>Room: {room.number} - Price: ${room.price}</span>
+                <span>Room: {room.room_id} <br />
+                - Price: ${room.price} <br />
+                - Capacity: {room.capacity} <br />
+                - View: {room.view_type} <br />
+                - Is Extendable: {room.is_extendable ? 'Yes' : 'No'} <br />
+                - Amenities: {room.amenities} <br />
+                - Problems: {room.problems} <br />
+                <button onClick={() => handleRoomBooking(room.room_id)}>Book Room</button>
+                </span>
               </li>
             ))}
           </ul>

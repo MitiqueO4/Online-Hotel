@@ -103,10 +103,31 @@ app.get("/Hotel_Chain", async(req, res) => {
 })
 
 // Get all Hotels
+app.get("/hotels", async(req, res) => {
+    try {
+        const allHC = await pool.query("SELECT * FROM Hotel");
+        res.json(allHC.rows);
+    } catch (error) {
+        console.error(error.message);
+    }
+})
+
+// Get hotel_id from Hotels
 app.get("/Hotel", async(req, res) => {
     try {
         const allH = await pool.query("SELECT hotel_id FROM Hotel");
         res.json(allH.rows);
+    } catch (error) {
+        console.error(error.message);
+    }
+})
+
+// Get all Rooms
+app.post("/rooms", async(req, res) => {
+    try {
+        const { hotelId } = req.body;
+        const allRooms = await pool.query("SELECT * FROM Room WHERE hotel_id = $1", [hotelId]);
+        res.json(allRooms.rows);
     } catch (error) {
         console.error(error.message);
     }
