@@ -5,7 +5,8 @@ import Manager from "./components/Manager/manager";
 import HomePage from './components/HomePage/homepage';
 import HotelChainCreationForm from './components/HotelChainCreationForm/hotelchaincreationform'; 
 import HotelChainRatingForm from './components/HotelChainRatingForm/hotelchainratingform';
-import HotelCreationForm from './components/HotelCreationForm/hotelcreationform'; 
+import HotelCreationForm from './components/HotelCreationForm/hotelcreationform';
+import RoomCreationForm from './components/RoomCreationForm/roomcreationform';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/hotelchaincreationform" element={<HotelChainCreationForm />} />
           <Route path="/hotelratingform" element={<HotelChainRatingForm />} />
           <Route path="/hotelcreationform" element={<HotelCreationForm />} />
+          <Route path="/roomcreationform" element={<RoomCreationForm />} />
         </Routes>
       </div>
     </Router>

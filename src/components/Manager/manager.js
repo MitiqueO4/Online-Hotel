@@ -17,6 +17,9 @@ const Manager = () => {
                 <Link to="/hotelcreationform">Add Hotel</Link>
               </li>
               <li>
+                <Link to="/roomcreationform">Add Room</Link>
+              </li>
+              <li>
                 <Link to="/hotelratingform">Rate Hotel</Link>
               </li>
             </ul>

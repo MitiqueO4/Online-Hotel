@@ -41,6 +41,41 @@ app.post("/Hotel", async(req, res) => {
     }
 });
 
+// Create Room
+app.post("/room", async(req, res) => {
+    try {
+        const { hotelID, roomId, price, amenities, capacity, view, extendable, damages } = req.body;
+        const queryText = `
+            INSERT INTO Room (hotel_id, room_id, price, amenities, capacity, view_type, is_extendable, problems)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+            ON CONFLICT (room_id) DO UPDATE
+            SET price = $3, amenities = $4, capacity = $5, view_type = $6, is_extendable = $7, problems = $8
+            RETURNING *;
+        `;
+        const values = [hotelID, roomId, price, amenities, capacity, view, extendable, damages];
+        const newRoom = await pool.query(queryText, values);
+
+        // Increment the number_of_rooms column in the hotel table
+        const hotelQueryText = `
+        UPDATE Hotel
+        SET number_of_rooms = number_of_rooms + 1
+        WHERE hotel_id = $1;
+        `;
+        const hotelValues = [hotelID];
+        await pool.query(hotelQueryText, hotelValues);
+
+        res.json(newRoom.rows[0]);
+    } catch (error) {
+        if (error.code === '23505') { // PostgreSQL error code for unique violation
+            console.error("Duplicate key violation. Updating existing record...");
+            res.status(409).json({ message: "Room already exists. Updated existing record." });
+        } else {
+            console.error(error.message);
+            res.status(500).json({ message: "Failed to create room" });
+        }
+    }
+});
+
 // Rate Hotel
 app.post("/Hotel_Rate", async(req, res) => {
     try {
@@ -62,6 +97,16 @@ app.get("/Hotel_Chain", async(req, res) => {
     try {
         const allHC = await pool.query("SELECT chain_id FROM Hotel_Chain");
         res.json(allHC.rows);
+    } catch (error) {
+        console.error(error.message);
+    }
+})
+
+// Get all Hotels
+app.get("/Hotel", async(req, res) => {
+    try {
+        const allH = await pool.query("SELECT hotel_id FROM Hotel");
+        res.json(allH.rows);
     } catch (error) {
         console.error(error.message);
     }

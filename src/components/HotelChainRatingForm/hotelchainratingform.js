@@ -44,7 +44,6 @@ const HotelRatingForm = () => {
         Select Chain:
         <select value={chainId} onChange={(e) => setChainId(e.target.value)}>
           {chains.map((chain) => {
-            console.log("Chain:", chain.chain_id); // Add this line to debug
             return (
               <option key={chain.chain_id} value={chain.chain_id}> 
                 {chain.chain_id}
