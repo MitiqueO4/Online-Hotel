@@ -41,7 +41,6 @@ const HotelList = () => {
   };
 
   const handleClosePopup = () => {
-    alert("Booking room succcessful!")
     setIsPopupOpen(false);
   };
 

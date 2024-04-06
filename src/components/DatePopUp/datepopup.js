@@ -12,6 +12,7 @@ function Popup({ onSubmit }) {
       alert("Please select start and end dates.");
       return;
     }
+    alert("Booking room succcessful!")
     onSubmit(startDate, endDate);
   };
 
