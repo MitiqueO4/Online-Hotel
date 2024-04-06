@@ -166,7 +166,7 @@ app.post("/login", async (req, res) => {
             return res.json({ message: "Manager login successful", redirectTo: "/manager" });
         } else {
             // Redirect to regular user URI if user is not a manager
-            return res.json({ message: "Regular user login successful", redirectTo: "/employee" });
+            return res.json({ message: "Regular user login successful", redirectTo: "/hotellist" });
         }
     } catch (error) {
         console.error(error.message);
@@ -182,6 +182,17 @@ app.post("/customers", async (req, res) => {
         const newUser = await pool.query("INSERT INTO users (email, password) VALUES ($1, $2)", [customerID, password]);
         res.json(newUser.rows);
         res.json(customer.rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// Create Employee
+app.post("/employee", async (req, res) => {
+    try {
+        const { empID, hotelID, manager, sin, roles } = req.body;
+        const employee = await pool.query("INSERT INTO employee (emp_id, hotel_id, manager, sin, roles) VALUES ($1, $2, $3, $4, ARRAY[$5])", [empID, hotelID, manager, sin, roles]);
+        res.json(employee.rows);
     } catch (error) {
         console.log(error.message);
     }

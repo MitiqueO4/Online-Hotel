@@ -31,6 +31,11 @@ const LoginSignup = () => {
             const { message, redirectTo } = responseData;
     
             console.log(message); // Log the login message
+            
+            // Redirect based on the response
+            if (redirectTo) {
+                window.location.href = redirectTo;
+            }
         } catch (error) {
             console.error('Login error:', error.message);
             setError(error.message);

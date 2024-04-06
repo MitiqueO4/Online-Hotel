@@ -5,7 +5,6 @@ const HomePage = () => {
   return (
     <div>
       <h1>Welcome to Our Hotel Booking Site</h1>
-      <HotelList />
     </div>
   );
 };

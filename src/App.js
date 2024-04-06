@@ -10,6 +10,7 @@ import RoomCreationForm from './components/RoomCreationForm/roomcreationform';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import CustomerCreationForm from './components/CustomerCreationForm/customercreationform';
 import HotelList from './components/HotelList/hotellist';
+import EmployeeCreationForm from './components/EmployeeCreationForm/employeecreationform';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/roomcreationform" element={<RoomCreationForm />} />
           <Route path="/customercreationform" element={<CustomerCreationForm />} />
           <Route path="/hotellist" element={<HotelList />} />
+          <Route path="/employeecreationform" element={<EmployeeCreationForm />} />
         </Routes>
       </div>
     </Router>

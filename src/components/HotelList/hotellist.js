@@ -5,6 +5,7 @@ const HotelList = () => {
   const [hotels, setHotels] = useState([]);
   const [selectedHotelId, setSelectedHotelId] = useState();
   const [rooms, setRooms] = useState([]);
+  const [sortOption, setSortOption] = useState('');
 
   useEffect(() => {
     // Fetch the list of hotels
@@ -26,17 +27,40 @@ const HotelList = () => {
     try {
       const response = await axios.post('/rooms', { hotelId });
       setRooms(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error('Error fetching rooms:', error);
     }
   };
 
-  const handleRoomBooking = async(e) => {
+  const handleRoomBooking = async(roomId) => {
     try {
-      return
+      // Implement room booking logic here
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    if (sortOption) {
+      sortRooms(sortOption);
+    }
+  }, [sortOption, rooms]);
+
+  const sortRooms = (option) => {
+    if (option === 'priceLowToHigh') {
+      setRooms([...rooms].sort((a, b) => a.price - b.price));
+    } else if (option === 'capacity') {
+      setRooms([...rooms].sort((a, b) => {
+        if (a.capacity < b.capacity) return -1;
+        if (a.capacity > b.capacity) return 1;
+        return 0;
+      }));
+    } else if (option === 'view') {
+      setRooms([...rooms].sort((a, b) => {
+        if (a.view_type === 'Mountain View' && b.view_type === 'Sea View') return -1;
+        if (a.view_type === 'Sea View' && b.view_type === 'Mountain View') return 1;
+        return 0;
+      }));
     }
   }
 
@@ -51,6 +75,15 @@ const HotelList = () => {
           </option>
         ))}
       </select>
+      <div>
+        <label>Sort by:</label>
+        <select onChange={(e) => setSortOption(e.target.value)}>
+          <option value="">Choose</option>
+          <option value="priceLowToHigh">Price Low to High</option>
+          <option value="capacity">Capacity</option>
+          <option value="view">View</option>
+        </select>
+      </div>
       {selectedHotelId && (
         <div>
           <h3>Rooms in Hotel</h3>
