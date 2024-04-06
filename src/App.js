@@ -8,6 +8,8 @@ import HotelChainRatingForm from './components/HotelChainRatingForm/hotelchainra
 import HotelCreationForm from './components/HotelCreationForm/hotelcreationform';
 import RoomCreationForm from './components/RoomCreationForm/roomcreationform';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import CustomerCreationForm from './components/CustomerCreationForm/customercreationform';
+import HotelList from './components/HotelList/hotellist';
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
           <Route path="/hotelratingform" element={<HotelChainRatingForm />} />
           <Route path="/hotelcreationform" element={<HotelCreationForm />} />
           <Route path="/roomcreationform" element={<RoomCreationForm />} />
+          <Route path="/customercreationform" element={<CustomerCreationForm />} />
+          <Route path="/hotellist" element={<HotelList />} />
         </Routes>
       </div>
     </Router>

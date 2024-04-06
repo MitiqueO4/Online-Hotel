@@ -174,5 +174,18 @@ app.post("/login", async (req, res) => {
     }
 });
 
+// Create Customer
+app.post("/customers", async (req, res) => {
+    try {
+        const { customerID, password, dateOfReg, idType, name, address } = req.body;
+        const customer = await pool.query("INSERT INTO customer (customer_id, date_of_reg, id_type, address, name) VALUES ($1, $2, $3, $4, $5)", [customerID, dateOfReg, idType, address, name]);
+        const newUser = await pool.query("INSERT INTO users (email, password) VALUES ($1, $2)", [customerID, password]);
+        res.json(newUser.rows);
+        res.json(customer.rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
 
 app.listen(port, () => console.log(`Server started on port ${port}`));

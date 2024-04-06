@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const CustomerCreationForm = () => {
   const [customerID, setCustomerID] = useState('');
+  const [password, setPassword] = useState('');
   const [dateOfReg, setDateOfReg] = useState('');
   const [idType, setIDType] = useState('');
   const [name, setName] = useState('');
@@ -11,14 +12,19 @@ const CustomerCreationForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/customers', { customerID, dateOfReg, idType, name, address });
+      await axios.post('/customers', { customerID, password, dateOfReg, idType, name, address });
       alert('Customer created successfully!');
+
       // Reset form fields
       setCustomerID('');
+      setPassword('');
       setDateOfReg('');
       setIDType('');
       setName('');
       setAddress('');
+
+      window.location.href = "/hotellist";
+
     } catch (error) {
       console.error('Failed to create customer:', error);
       alert('Failed to create customer');
@@ -28,7 +34,8 @@ const CustomerCreationForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <h2>Create Customer</h2>
-      <input type="number" value={customerID} onChange={(e) => setCustomerID(e.target.value)} placeholder="Customer ID" required />
+      <input type="text" value={customerID} onChange={(e) => setCustomerID(e.target.value)} placeholder="Customer ID" required />
+      <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required />
       <input type="date" value={dateOfReg} onChange={(e) => setDateOfReg(e.target.value)} placeholder="Date of Registration" required />
       <select value={idType} onChange={(e) => setIDType(e.target.value)} required>
         <option value="">Select ID Type</option>

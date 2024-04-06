@@ -11,7 +11,7 @@ const Navbar = () => {
       <div className="desktopMenu">
         <Link to="home" smooth={true} duration={1000} className="desktopMenuListItem">Home</Link>
         <Link to="about" smooth={true} duration={1000} className="desktopMenuListItem">About</Link>
-        <Link to="hotels" smooth={true} duration={1000} className="desktopMenuListItem">Hotels</Link>
+        <Link to="/hotellist" smooth={true} duration={1000} className="desktopMenuListItem">Hotels</Link>
       </div>
       <Link to="/login" className='desktopMenuBtn'>Log in</Link>
     </nav>
