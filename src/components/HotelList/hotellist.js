@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Popup from '../DatePopUp/datepopup';
 
 const HotelList = () => {
   const [hotels, setHotels] = useState([]);
   const [selectedHotelId, setSelectedHotelId] = useState();
   const [rooms, setRooms] = useState([]);
+  const [selectedRoomId, setSelectedRoomId] = useState(null);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [sortOption, setSortOption] = useState('');
 
   useEffect(() => {
@@ -32,13 +35,23 @@ const HotelList = () => {
     }
   };
 
-  const handleRoomBooking = async(roomId) => {
-    try {
-      // Implement room booking logic here
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  const handleRoomBooking = (roomId) => {
+    setSelectedRoomId(roomId);
+    setIsPopupOpen(true);
+  };
+
+  const handleClosePopup = () => {
+    alert("Booking room succcessful!")
+    setIsPopupOpen(false);
+  };
+
+  const handleSubmitBooking = (startDate, endDate) => {
+    console.log('Room ID:', selectedRoomId);
+    console.log('Start Date:', startDate);
+    console.log('End Date:', endDate);
+    setIsPopupOpen(false);
+    // You can send the booking details to the backend here
+  };
 
   useEffect(() => {
     if (sortOption) {
@@ -104,6 +117,9 @@ const HotelList = () => {
             ))}
           </ul>
         </div>
+      )}
+      {isPopupOpen && (
+        <Popup onSubmit={handleSubmitBooking} onClose={handleClosePopup} />
       )}
     </div>
   );
